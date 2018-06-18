@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config ./webpack.prod.js",
     "start": "webpack-dev-server --config ./webpack.dev.js",
-    "stats": "webpack --env.production --profile --json > stats.json",
+    "stats": "webpack --config ./webpack.prod.js --profile --json > stats.json",
     "test": "jest",
     "lint": "eslint --ext .jsx,.js src/"
   },
