@@ -15,7 +15,6 @@ const devConfig = {
         hot: true, // enable hot module replacement
         quiet: true, // use friendly errors plugin
         stats: "errors-only", // display only errors to reduce the amount of output
-        host: "0.0.0.0", // access server externally
     },
     module: {
         rules: [
