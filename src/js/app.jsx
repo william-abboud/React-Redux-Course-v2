@@ -1,18 +1,10 @@
 import React from 'react';
-import Content from './content';
 import { hot } from 'react-hot-loader';
+import data from '../data/artists';
+import ArtistList from './artist-list';
 
-function App() {
-  return (
-    <Content
-      title="Hello World"
-      theme="dark"
-      isLoggedIn
-    >
-      <p>Hello World I am from the outside</p>
-      <p>Hello World I am from the outside 2</p>
-    </Content>
-  );
+const App = () => {
+  return <ArtistList artists={data} />;
 };
 
 export default hot(module)(App);

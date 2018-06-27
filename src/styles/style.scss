@@ -3,17 +3,21 @@
 }
 
 body {
-    background: tomato;
+    background: lightblue;
 }
 
-.container {
-    border: 2px solid #000;
-    width: 400px;
-    height: 400px;
-    border-radius: 5px;
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .dark {
-    color: #fff;
-    background: darkslategrey;
+    background: darkblue;
+    color: white;
+}
+
+.light {
+    background: lightgray;
+    color: #000;
 }
