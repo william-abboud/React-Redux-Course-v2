@@ -22,9 +22,12 @@ Your table contains rows of data where each row has the following information e.
 4. Implement sorting of the data by clicking on each header of
    each column to sort alphabetically or numerically by that column's data:
 
+<br />
 e.g If you click on the "Position" table header you sort the table alphabetically by the position name.
+<br />
 e.g 2 If you click on the "Salary" table header you sort the table by MOST salary first.
 
+<br />
 Hint: Use state heavily to keep the table data. When you sort update state with sorted table data.
 Hint 2: Pass the initial table data through props (records prop)
 
