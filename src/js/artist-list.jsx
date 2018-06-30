@@ -6,29 +6,34 @@ class ArtistList extends React.Component {
         super(props);
 
         this.state = {
-            isLoading: true,
-            artists: props.artists,
-            theme: new Date().getHours() < 22 ? "light" : "dark"
+            theme: "dark",
+            artists: this.props.artists
         };
+
+        this.sayHello = this.sayHello.bind(this);
     }
 
-    loadMoreArtists() {
-        fetch('/artists', { page: 2 }).then(newArtists => {
-            this.setState({ artists: [...this.state.artists, ...newArtists] })
-        });
+    sayHello() {
+        console.log("Hello");
     }
 
     render() {
         const { artists } = this.state;
 
         return (
-            <ul className={this.state.theme}>
-                {
-                    artists.map(artist =>
-                        <ArtistCard artist={artist} />)
-                }
-                <button onClick={this.loadMoreArtists}>Load more</button>
-            </ul>
+            <div>
+                <ul className={this.state.theme}>
+                    {
+                        artists.map(artist =>
+                            <ArtistCard 
+                                key={artist.id}
+                                artist={artist}
+                                onClick={this.props.onClick}
+                            />
+                        )
+                    }
+                </ul>
+            </div>
         );
     }
 }
