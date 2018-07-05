@@ -1,19 +1,32 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import data from '../data/artists';
-import ArtistList from './artist-list';
-import RecordsTable from '../Homework-solutions/homework-2/records-table';
-import records from '../Homework-solutions/homework-2/records';
-
+import StarWarsCharactersList from './star-wars-characters-list';
 
 class App extends React.Component {
-  log(alias, event) {
-    console.log(alias);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      theme: 'dark',
+      page: 1      
+    };
   }
 
   render() {
-    return <RecordsTable records={records} />;
-    // return <ArtistList artists={data} onClick={this.log} />;
+    const { theme, page } = this.state;
+
+    return <StarWarsCharactersList theme={theme} page={page} />;
+  }
+
+  componentDidMount() {
+    // setTimeout(() => {
+    //   this.setState((prevState) => {
+    //     return {
+    //       theme: 'light',
+    //       page: prevState.page + 1
+    //     }
+    //   });
+    // }, 2000);
   }
 };
 
