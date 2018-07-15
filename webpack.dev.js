@@ -15,6 +15,7 @@ const devConfig = {
         hot: true, // enable hot module replacement
         quiet: true, // use friendly errors plugin
         stats: "errors-only", // display only errors to reduce the amount of output
+        port: 4043
     },
     module: {
         rules: [
