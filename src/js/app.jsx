@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
+import { createStore } from 'redux';
 import ChuckNorrisJokes from './chuck-norris-jokes';
 
 /*
@@ -21,9 +22,9 @@ class App extends React.Component {
     return <StarWarsCharactersList theme={theme} page={page} />;
   }
 };
-
 */
 
+/*
 class Row extends Component {
   componentWillUnmount() {
     alert('You have delete' + this.props.name);
@@ -126,5 +127,76 @@ class App extends Component {
     console.log(this.props, this.state);
   }
 };
+*/
+
+function appReducer(currentState, action) {
+  if (action.type === 'CREATE_GREETING_MESSAGE') {
+    return Object.assign(currentState, {
+      greetingMessages: [...currentState.greetingMessages, { message: action.message, language: action.language }]
+    });
+  }
+
+  return {
+    greetingMessages: [
+    ],
+    shoppingCardItems: [
+      1,
+      2,
+      3
+    ]
+  };
+}
+
+const store = createStore(appReducer);
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      message: '',
+    };
+
+    this.addMessage = this.addMessage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    this.setState({
+      message: target.value
+    });
+  }
+
+  addMessage(e) {
+    e.preventDefault();
+
+    const action = {
+      type: 'CREATE_GREETING_MESSAGE',
+      language: 'en',
+      message: this.state.message,
+    };
+    
+    store.subscribe(() => {
+      this.forceUpdate();
+    });
+    store.dispatch(action);
+  }
+
+  render() {
+    return (
+      <div>
+        <ul>
+          {
+            store.getState().greetingMessages.map(greeting => <li>{greeting.message}</li>)
+          }
+        </ul>
+        <form onSubmit={this.addMessage}>
+          <input type="text" onChange={this.handleChange} value={this.state.message} />
+          <button>Add Message</button>
+        </form>
+      </div>
+    );
+  }
+}
 
 export default hot(module)(App);

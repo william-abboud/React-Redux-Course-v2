@@ -66,6 +66,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-hot-loader": "^4.3.3",
+    "redux": "^4.0.0",
     "webpack-cli": "^3.0.8"
   },
   "jest": {
