@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 import { createStore } from 'redux';
-import ChuckNorrisJokes from './chuck-norris-jokes';
+//import ChuckNorrisJokes from './chuck-norris-jokes';
+import { getAllChuckNorrisJokes } from '../js/services/chuck-norris-service';
 
 /*
 import StarWarsCharactersList from './star-wars-characters-list';
 
 class App extends React.Component {
   constructor(props) {
+    props(props);
     super(props);
 
     this.state = {
@@ -43,6 +45,7 @@ class Row extends Component {
 
 class App extends Component {
   constructor(props) {
+    props(props);
     super(props);
 
     this.state = {
@@ -129,26 +132,27 @@ class App extends Component {
 };
 */
 
-function appReducer(currentState, action) {
-  if (action.type === 'CREATE_GREETING_MESSAGE') {
-    return Object.assign(currentState, {
-      greetingMessages: [...currentState.greetingMessages, { message: action.message, language: action.language }]
-    });
-  }
+// function appReducer(currentState, action) {
+//   if (action.type === 'CREATE_GREETING_MESSAGE') {
+//     return Object.assign(currentState, {
+//       greetingMessages: [...currentState.greetingMessages, { message: action.message, language: action.language }]
+//     });
+//   }
 
-  return {
-    greetingMessages: [
-    ],
-    shoppingCardItems: [
-      1,
-      2,
-      3
-    ]
-  };
-}
+//   return {
+//     greetingMessages: [
+//     ],
+//     shoppingCardItems: [
+//       1,
+//       2,
+//       3
+//     ]
+//   };
+// }
 
-const store = createStore(appReducer);
+// const store = createStore(appReducer);
 
+/*
 class App extends Component {
   constructor(props) {
     super(props);
@@ -175,10 +179,7 @@ class App extends Component {
       language: 'en',
       message: this.state.message,
     };
-    
-    store.subscribe(() => {
-      this.forceUpdate();
-    });
+
     store.dispatch(action);
   }
 
@@ -196,6 +197,122 @@ class App extends Component {
         </form>
       </div>
     );
+  }
+
+  componentDidMount() {
+    store.subscribe(() => {
+      this.setState({
+        message: ''
+      });
+    });
+  }
+} */
+
+const DEFAULT_STATE = {
+  count: 0,
+  jokes: []
+};
+
+function mainReducer(currentState = DEFAULT_STATE, action) {
+  switch(action.type) {
+    case 'ADD':
+      return Object.assign({}, currentState, {
+        count: currentState.count + 1
+      });
+    case 'SUBTRACT':
+      return Object.assign({}, currentState, {
+        count: currentState.count - 1
+      });
+    case 'LOAD_JOKES':
+      return Object.assign({}, currentState, {
+        jokes: action.jokes
+      });
+    default:
+      return currentState;
+  }
+}
+
+const { dispatch, getState, subscribe } = createStore(mainReducer);
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+
+    this.add = this.add.bind(this);
+    this.subtract = this.subtract.bind(this);
+  }
+
+  add() {
+    const action = {
+      type: 'ADD',
+    };
+
+    dispatch(action);
+  }
+
+  subtract() {
+    const action = {
+      type: 'SUBTRACT'
+    };
+
+    dispatch(action);
+  }
+
+  render() {
+    return (
+      <div>
+        <span>{this.props.count}</span>
+        <br />
+        <button onClick={this.add}>+</button>
+        <button onClick={this.subtract}>-</button>
+      </div>
+    );
+  }
+}
+
+class ChuckNorrisJokes extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <ul>
+        {this.props.jokes.map(joke => <li>{joke.joke}</li>)}
+      </ul>
+    );
+  }
+
+  componentDidMount() {
+    getAllChuckNorrisJokes()
+      .then(jokes => {
+        dispatch({
+          type: 'LOAD_JOKES',
+          jokes
+        });
+      })
+      .catch(e => console.error(e));
+  }
+}
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { jokes, count } = getState();
+
+    return (
+      <div>
+        <Counter count={count} />
+        <ChuckNorrisJokes jokes={jokes} />
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    subscribe(this.forceUpdate.bind(this));
   }
 }
 
