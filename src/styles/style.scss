@@ -41,3 +41,43 @@ ul {
     font-size: 36px;
     animation: spin infinite 1s linear;
 }
+
+.todo {
+    border-radius: 10px;
+    border: 1px solid #000;
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+    color: darkblue;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    
+    input {
+        transform: scale(2);
+    }
+
+    button {
+        border: 1px solid #000;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 24px;
+        margin: 0 0 0 10px;
+    }
+}
+
+.create-todo-form {
+    border: 1px solid #000;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    
+    input, button {
+        border: 1px solid #000;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 24px;
+        margin: 0 0 0 10px;
+    }
+}
