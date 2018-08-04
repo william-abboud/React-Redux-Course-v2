@@ -13,7 +13,8 @@ module.exports = {
         app: './index.js' // start building dependency stree from here
     },
     output: {
-        path: IN_DIST() // output all files here
+        path: IN_DIST(),  // output all files here
+        publicPath: '/'
     },
     module: {
         rules: [

@@ -8,14 +8,14 @@ const devConfig = {
     mode: 'development', // development optimizations
     devtool: 'inline-source-map', // fast source-maps
     devServer: {
-        contentBase: IN_DIST(),
         open: true, // open browser
         https: true, // use https
         overlay: true, // display error overlay
         hot: true, // enable hot module replacement
         quiet: true, // use friendly errors plugin
         stats: "errors-only", // display only errors to reduce the amount of output
-        port: 4043
+        port: 4043,
+        historyApiFallback: true
     },
     module: {
         rules: [

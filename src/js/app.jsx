@@ -1,44 +1,37 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Link, Route, Redirect, Switch } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import App from './todo-app/app';
+import HomeView from './views/home-view';
+import AboutView from './views/about-view';
+import BooksLayout from './layouts/books-layout';
 
-const store = createStore(function todosReducer(state = { todos: [], filter: "" }, action) {
-  switch(action.type) {
-    case 'CHANGE_TODO_STATUS':
-      return Object.assign({}, state, {
-        todos: state.todos.map(todo => {
-          if (todo.id === action.id) {
-            return Object.assign({}, todo, {
-              isCompleted: action.status
-            });
-          }
-          
-          return todo;
-        })
-      });
-    case 'DELETE_TODO':
-      return Object.assign({}, state, {
-        todos: state.todos.filter(todo => todo.id !== action.id)
-      });
-    case 'CREATE_TODO':
-      return Object.assign({}, state, {
-        todos: [...state.todos, { id: Math.random(), name: action.todo.name, isCompleted: false }]
-      });
-    default:
-      return state;
-  }
-});
-
-class TodoApp extends Component {
+class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <div>
+        <header>
+          <nav>
+            <ul>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/newbooks">Books</Link></li>
+            </ul>
+          </nav>
+        </header>
+        <React.Fragment>
+          <Switch>
+            <Route path="/" component={HomeView} exact />
+            <Route path="/about" component={AboutView} />
+            <Route path="/newbooks" component={BooksLayout} />
+            <Redirect to="/" />
+          </Switch>
+        </React.Fragment>
+      </div>
     );
   }
 }
 
-export default hot(module)(TodoApp);
+function AppWrapper() {
+  return <Router><App /></Router>
+}
+
+export default hot(module)(AppWrapper);

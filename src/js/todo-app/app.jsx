@@ -83,7 +83,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 // function connect(fn, fn) {
 //     const props = fn(store.getState());
-//      const propsWithMethods = fn(store.dispatch);
+//     const propsWithMethods = fn(store.dispatch);
 
 //     return (Component) => {
 //         return <Component todos={props.todos} {...propsWithMethods} />;

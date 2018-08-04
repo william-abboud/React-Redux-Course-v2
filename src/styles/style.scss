@@ -81,3 +81,27 @@ ul {
         margin: 0 0 0 10px;
     }
 }
+
+header ul {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    align-items: center;
+
+    li {
+        margin-right: 10px;
+    }
+}
+
+.book-card {
+    border: 1px solid;
+    display: flex;
+    flex-flow: column nowrap;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 20px;
+
+    img {
+        object-fit: contain;
+    }
+}
